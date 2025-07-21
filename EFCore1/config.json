@@ -1,0 +1,6 @@
+{
+  "ConnectionStrings": {
+    "SqlServer": "Server=localhost,1433;Database=GameDb;Trusted_Connection=True;TrustServerCertificate=True;",
+    "SQLite": "Data Source=app.db;"
+  }
+}
