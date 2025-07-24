@@ -3,7 +3,8 @@ global using Microsoft.EntityFrameworkCore.SqlServer;
 global using Microsoft.EntityFrameworkCore.Sqlite;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.Configuration.Json;
-using ORMS;
+using EFCore1;
+using EFCore1.Entities;
 
 var builder = new ConfigurationBuilder();
 
@@ -16,10 +17,75 @@ IConfiguration configuration = builder.Build();
 
 var dbContext = new AppDbContext(configuration);
 
+dbContext.ChangeTracker.AutoDetectChangesEnabled = false;
+
 // dbContext.Database.EnsureDeleted();
 dbContext.Database.EnsureCreated();
 
 
+//// SELECT
+// var publisherName = "Nintendo";
+// var games = dbContext.Games
+//     .Include(g => g.Publisher)
+//     .Where(g => g.Publisher.Name == publisherName);
+//
+// foreach (var game in games)
+// {
+//     Console.WriteLine($"{game.Name}: {game.Price} | {game.Publisher.Name}");
+// }
+
+//// INSERT
+
+// var publisher = new Publisher
+// {
+//     Name = "Govno"
+// };
+//
+// dbContext.Publishers.Add(publisher);
+// dbContext.Publishers.Add(new Publisher
+// {
+//     Name = "Mocha"
+// });
+//
+// dbContext.SaveChanges();
+
+//// DELETE
+
+// // 1
+// dbContext.Publishers.Remove(new Publisher
+// {
+//     Id = 1
+// });
+// dbContext.SaveChanges();
+
+// // 2
+// dbContext.Database.BeginTransaction();
+// dbContext.Publishers.Where(g => g.Id == -2 || g.Id == 1).ExecuteDelete();
+// dbContext.Database.CommitTransaction();
+
+
+//// UPDATE
+
+// dbContext.Publishers.Update(new Publisher
+// {
+//     Id = 2,
+//     Name = "Mocha Arts"
+// });
+
+// var game = dbContext.Games.First(x => x.Id == -1);
+//
+// game.Price *= 0.9m;
+//
+// dbContext.SaveChanges();
+
+// foreach (var g in dbContext.Games.Local)
+// {
+//     Console.WriteLine(g.Id);
+// }
+
+// dbContext.SaveChanges();
+
+//////////////////////////////////////////
 // SOLID
 // S - Single Responsibility
 
