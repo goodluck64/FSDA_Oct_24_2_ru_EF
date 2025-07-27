@@ -16,11 +16,14 @@ internal class AppDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(_configuration["ConnectionStrings:SqlServer"]);
+        optionsBuilder.UseSqlite(_configuration["ConnectionStrings:SQLite"]);
 
         File.Delete(LogFileName);
-        
+
         optionsBuilder.LogTo(message => File.AppendAllText(LogFileName, message));
+        // optionsBuilder.LogTo(Console.WriteLine);
+
+        // optionsBuilder.UseLazyLoadingProxies();
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -70,19 +73,19 @@ internal class AppDbContext : DbContext
         modelBuilder.Entity<Game>()
             .HasData(new List<Game>
             {
-                new Game { Id = -1, Name = "The Witcher 3: Wild Hunt", Price = 29.99m, PublisherId = -1 },
-                new Game { Id = -2, Name = "Cyberpunk 2077", Price = 39.99m, PublisherId = -1 },
-                new Game { Id = -3, Name = "Red Dead Redemption 2", Price = 59.99m, PublisherId = -2 },
-                new Game { Id = -4, Name = "Elden Ring", Price = 49.99m, PublisherId = -3 },
-                new Game { Id = -5, Name = "God of War: Ragnarök", Price = 69.99m, PublisherId = -4 },
-                new Game { Id = -6, Name = "Horizon Forbidden West", Price = 49.99m, PublisherId = -4 },
-                new Game { Id = -7, Name = "Starfield", Price = 59.99m, PublisherId = -5 },
+                new Game { Id = -1, Name = "The Witcher 3: Wild Hunt", Price = 29.99, PublisherId = -1 },
+                new Game { Id = -2, Name = "Cyberpunk 2077", Price = 39.99, PublisherId = -1 },
+                new Game { Id = -3, Name = "Red Dead Redemption 2", Price = 59.99, PublisherId = -2 },
+                new Game { Id = -4, Name = "Elden Ring", Price = 49.99, PublisherId = -3 },
+                new Game { Id = -5, Name = "God of War: Ragnarök", Price = 69.99, PublisherId = -4 },
+                new Game { Id = -6, Name = "Horizon Forbidden West", Price = 49.99, PublisherId = -4 },
+                new Game { Id = -7, Name = "Starfield", Price = 59.99, PublisherId = -5 },
                 new Game
                 {
-                    Id = -8, Name = "The Legend of Zelda: Tears of the Kingdom", Price = 59.99m, PublisherId = -6
+                    Id = -8, Name = "The Legend of Zelda: Tears of the Kingdom", Price = 59.99, PublisherId = -6
                 },
-                new Game { Id = -9, Name = "Final Fantasy XVI", Price = 69.99m, PublisherId = -7 },
-                new Game { Id = -10, Name = "Resident Evil 4 Remake", Price = 49.99m, PublisherId = -8 }
+                new Game { Id = -9, Name = "Final Fantasy XVI", Price = 69.99, PublisherId = -7 },
+                new Game { Id = -10, Name = "Resident Evil 4 Remake", Price = 49.99, PublisherId = -8 }
             });
     }
 

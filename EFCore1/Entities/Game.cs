@@ -7,10 +7,10 @@ public class Game
 {
     public int Id { get; set; }
     public string Name { get; set; } = null!;
-    public decimal Price { get; set; }
+    public double Price { get; set; }
 
-    public Publisher Publisher { get; set; } = null!;
+    public Publisher Publisher { get; set; } = null!; // virtual for lazy loading
     public int PublisherId { get; set; }
 
-    public ICollection<Category> Categories { get; set; } = [];
+    public ICollection<Category> Categories { get; set; } = [];  // virtual for lazy loading
 }

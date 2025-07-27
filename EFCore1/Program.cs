@@ -17,7 +17,7 @@ IConfiguration configuration = builder.Build();
 
 var dbContext = new AppDbContext(configuration);
 
-dbContext.ChangeTracker.AutoDetectChangesEnabled = false;
+// dbContext.ChangeTracker.AutoDetectChangesEnabled = false;
 
 // dbContext.Database.EnsureDeleted();
 dbContext.Database.EnsureCreated();
@@ -84,6 +84,46 @@ dbContext.Database.EnsureCreated();
 // }
 
 // dbContext.SaveChanges();
+
+
+//////////////////////////////////////////
+//// Eager loading
+// var result = dbContext.Games
+//     .Include(g => g.Publisher)
+//     .ThenInclude(p => p.Games)
+//     .Include(g => g.Categories)
+//     .Single(x => x.Id == -9);
+//
+// Console.WriteLine(result.Publisher.Name);
+// Console.WriteLine(result.Publisher.Games.Count);
+// Console.WriteLine(result.Categories.Count);
+
+//// Lazy loading
+
+// var result = dbContext.Games.Single(g => g.Id == -10);  // <- 1s
+//
+// Console.WriteLine(result.Name);
+// Console.WriteLine(result.Publisher.Name);
+
+//// Explicit loading
+
+var game = dbContext.Find<Game>(-10);
+
+if (game is null)
+{
+    return;
+}
+
+var gameEntry = dbContext.Entry(game);
+
+gameEntry.Reference(g => g.Publisher).Load();
+gameEntry.Collection(g => g.Categories).Load();
+
+gameEntry.Reload();
+
+Console.WriteLine(game.Publisher.Name);
+Console.WriteLine(game.Categories.Count);
+
 
 //////////////////////////////////////////
 // SOLID
@@ -246,6 +286,7 @@ interface IEntityIo
 // }
 
 // Ok
+
 
 class DbData;
 
