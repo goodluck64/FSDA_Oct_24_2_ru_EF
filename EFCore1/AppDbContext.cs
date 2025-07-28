@@ -6,20 +6,31 @@ namespace EFCore1;
 internal class AppDbContext : DbContext
 {
     private readonly IConfiguration _configuration;
+    private readonly bool _isMigration;
 
-    public AppDbContext(IConfiguration configuration)
+    public AppDbContext(IConfiguration configuration, bool isMigration = false)
     {
         _configuration = configuration;
+        _isMigration = isMigration;
     }
 
     private const string LogFileName = "logs.txt";
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite(_configuration["ConnectionStrings:SQLite"]);
+        if (_isMigration)
+        {
+            optionsBuilder.UseSqlite(_configuration["ConnectionStrings:SQLite_Migration"]);
+        }
+        else
+        {
+            optionsBuilder.UseSqlite(_configuration["ConnectionStrings:SQLite"]);
+        }
+        
 
+        // "SQLite": "Data Source=app.db;"
+        
         File.Delete(LogFileName);
-
         optionsBuilder.LogTo(message => File.AppendAllText(LogFileName, message));
         // optionsBuilder.LogTo(Console.WriteLine);
 

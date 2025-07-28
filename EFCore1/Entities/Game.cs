@@ -9,6 +9,7 @@ public class Game
     public string Name { get; set; } = null!;
     public double Price { get; set; }
 
+    public DateTime PublishDateTime { get; set; }
     public Publisher Publisher { get; set; } = null!; // virtual for lazy loading
     public int PublisherId { get; set; }
 

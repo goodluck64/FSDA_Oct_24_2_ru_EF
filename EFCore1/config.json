@@ -1,6 +1,7 @@
 {
   "ConnectionStrings": {
-    "SqlServer": "Server=localhost,1433;Database=GameDb;Trusted_Connection=True;TrustServerCertificate=True;",
+    "SqlServer": "Server=127.0.0.1,1433;Database=GameDb;Trusted_Connection=True;TrustServerCertificate=True;",
+    "SQLite_Migration": "Data Source=bin\\Debug\\net9.0\\app.db;",
     "SQLite": "Data Source=app.db;"
   }
 }
