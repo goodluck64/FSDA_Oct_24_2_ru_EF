@@ -107,23 +107,46 @@ dbContext.Database.EnsureCreated();
 
 //// Explicit loading
 
-var game = dbContext.Find<Game>(-10);
+// var game = dbContext.Find<Game>(-10);
+//
+// if (game is null)
+// {
+//     return;
+// }
+//
+// var gameEntry = dbContext.Entry(game);
+//
+// gameEntry.Reference(g => g.Publisher).Load();
+// gameEntry.Collection(g => g.Categories).Load();
+//
+// gameEntry.Reload();
+//
+// Console.WriteLine(game.Publisher.Name);
+// Console.WriteLine(game.Categories.Count);
 
-if (game is null)
+
+///////////////////
+
+var entry = dbContext.Publishers.Add(new Publisher
 {
-    return;
-}
+    Name = "Analbek Productions"
+});
 
-var gameEntry = dbContext.Entry(game);
+dbContext.SaveChanges();
 
-gameEntry.Reference(g => g.Publisher).Load();
-gameEntry.Collection(g => g.Categories).Load();
 
-gameEntry.Reload();
+dbContext.EarlyAccessGames.Add(new EarlyAccessGame
+{
+    PublishDateTime = new DateTime(),
+    Name = "EFT",
+    Price = 129.0,
+    PublisherId = entry.Entity.Id,
+    ReleaseDate = DateTime.Now.AddMonths(6),
+    VoteDown = Random.Shared.Next(1, int.MaxValue),
+    VoteUp = Random.Shared.Next(1, int.MaxValue),
+});
 
-Console.WriteLine(game.Publisher.Name);
-Console.WriteLine(game.Categories.Count);
-
+dbContext.SaveChanges();
 
 //////////////////////////////////////////
 // SOLID

@@ -13,5 +13,5 @@ public class Game
     public Publisher Publisher { get; set; } = null!; // virtual for lazy loading
     public int PublisherId { get; set; }
 
-    public ICollection<Category> Categories { get; set; } = [];  // virtual for lazy loading
+    public ICollection<Category> Categories { get; set; } = []; // virtual for lazy loading
 }

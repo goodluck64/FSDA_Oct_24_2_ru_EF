@@ -26,10 +26,10 @@ internal class AppDbContext : DbContext
         {
             optionsBuilder.UseSqlite(_configuration["ConnectionStrings:SQLite"]);
         }
-        
+
 
         // "SQLite": "Data Source=app.db;"
-        
+
         File.Delete(LogFileName);
         optionsBuilder.LogTo(message => File.AppendAllText(LogFileName, message));
         // optionsBuilder.LogTo(Console.WriteLine);
@@ -101,6 +101,7 @@ internal class AppDbContext : DbContext
     }
 
     public DbSet<Game> Games { get; set; }
+    public DbSet<EarlyAccessGame> EarlyAccessGames { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<CategoryGame> CategoryGames { get; set; }
     public DbSet<Publisher> Publishers { get; set; }
