@@ -3,8 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 var serviceCollection = new ServiceCollection();
 
-serviceCollection.AddTransient<ILogger, ConsoleLogger>();
-serviceCollection.AddSingleton<ICounter, Counter>();
+serviceCollection.AddSingleton<ILogger, ConsoleLogger>();
+serviceCollection.AddTransient<ICounter, Counter>();
 
 // ILogger logger = new ConsoleLogger();
 // ICounter counter = new Counter(logger);
