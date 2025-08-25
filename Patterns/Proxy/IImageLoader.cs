@@ -8,12 +8,6 @@ internal interface IImageManager
     void LoadImage(string url);
     string? GetImagePathByUrl(string url);
 }
-
-internal interface IImageOpener
-{
-    string OpenImage(string url);
-}
-
 internal sealed class ImagerManager : IImageManager
 {
     public void LoadImage(string url)
